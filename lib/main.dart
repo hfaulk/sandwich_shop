@@ -30,6 +30,7 @@ class OrderItemDisplay extends StatelessWidget {
     return Text(
       '$quantity $itemType sandwich(es): ${'🥪' * quantity}',
       textAlign: TextAlign.center,
+      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
     );
   }
 }
@@ -66,19 +67,28 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  color: Colors.lightBlue,
+                  decoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   padding: const EdgeInsets.all(16.0),
                   width: 200,
                   child: OrderItemDisplay(5, 'Footlong'),
                 ),
                 Container(
-                  color: Colors.lightBlue,
+                  decoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   padding: const EdgeInsets.all(16.0),
                   width: 175,
                   child: OrderItemDisplay(7, 'BLT'),
                 ),
                 Container(
-                  color: Colors.lightBlue,
+                  decoration: BoxDecoration(
+                    color: Colors.lightBlue,
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   padding: const EdgeInsets.all(16.0),
                   width: 200,
                   child: OrderItemDisplay(2, 'Veggie'),
