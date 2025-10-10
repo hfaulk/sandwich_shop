@@ -27,7 +27,10 @@ class OrderItemDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('$quantity $itemType sandwich(es): ${'🥪' * quantity}');
+    return Text(
+      '$quantity $itemType sandwich(es): ${'🥪' * quantity}',
+      textAlign: TextAlign.center,
+    );
   }
 }
 
@@ -55,10 +58,28 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-      body: const Center(
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[OrderItemDisplay(5, 'Footlong')],
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: OrderItemDisplay(5, 'Footlong'),
+                  color: Colors.green,
+                  padding: const EdgeInsets.all(16.0),
+                  width: 200,
+                ),
+                Container(
+                  child: OrderItemDisplay(7, 'BLT'),
+                  color: Colors.green,
+                  padding: const EdgeInsets.all(16.0),
+                  width: 200,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
