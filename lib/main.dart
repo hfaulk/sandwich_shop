@@ -22,15 +22,29 @@ class MyApp extends StatelessWidget {
 class OrderItemDisplay extends StatelessWidget {
   final String itemType;
   final int quantity;
+  final double width;
 
-  const OrderItemDisplay(this.quantity, this.itemType, {super.key});
+  const OrderItemDisplay(
+    this.quantity,
+    this.itemType, {
+    super.key,
+    this.width = 200,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      '$quantity $itemType sandwich(es): ${'🥪' * quantity}',
-      textAlign: TextAlign.center,
-      style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.lightBlue,
+        borderRadius: BorderRadius.circular(12.0),
+      ),
+      padding: const EdgeInsets.all(16.0),
+      width: width,
+      child: Text(
+        '$quantity $itemType sandwich(es): ${'🥪' * quantity}',
+        textAlign: TextAlign.center,
+        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      ),
     );
   }
 }
@@ -66,33 +80,9 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  padding: const EdgeInsets.all(16.0),
-                  width: 200,
-                  child: OrderItemDisplay(5, 'Footlong'),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  padding: const EdgeInsets.all(16.0),
-                  width: 175,
-                  child: OrderItemDisplay(7, 'BLT'),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.lightBlue,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  padding: const EdgeInsets.all(16.0),
-                  width: 200,
-                  child: OrderItemDisplay(2, 'Veggie'),
-                ),
+                OrderItemDisplay(5, 'Footlong'),
+                OrderItemDisplay(7, 'BLT', width: 175),
+                OrderItemDisplay(2, 'Veggie'),
               ],
             ),
           ],
