@@ -63,19 +63,22 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
-                  child: OrderItemDisplay(5, 'Footlong'),
-                  color: Colors.green,
                   padding: const EdgeInsets.all(16.0),
                   width: 200,
+                  child: OrderItemDisplay(5, 'Footlong'),
                 ),
                 Container(
+                  padding: const EdgeInsets.all(16.0),
+                  width: 175,
                   child: OrderItemDisplay(7, 'BLT'),
-                  color: Colors.green,
+                ),
+                Container(
                   padding: const EdgeInsets.all(16.0),
                   width: 200,
+                  child: OrderItemDisplay(2, 'Veggie'),
                 ),
               ],
             ),
