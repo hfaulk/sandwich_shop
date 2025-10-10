@@ -58,12 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Welcome to the Sandwich Shop!',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-            ),
-          ],
+          children: <Widget>[OrderItemDisplay(5, 'Footlong')],
         ),
       ),
     );
