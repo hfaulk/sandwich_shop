@@ -66,16 +66,19 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Container(
+                  color: Colors.lightBlue,
                   padding: const EdgeInsets.all(16.0),
                   width: 200,
                   child: OrderItemDisplay(5, 'Footlong'),
                 ),
                 Container(
+                  color: Colors.lightBlue,
                   padding: const EdgeInsets.all(16.0),
                   width: 175,
                   child: OrderItemDisplay(7, 'BLT'),
                 ),
                 Container(
+                  color: Colors.lightBlue,
                   padding: const EdgeInsets.all(16.0),
                   width: 200,
                   child: OrderItemDisplay(2, 'Veggie'),
