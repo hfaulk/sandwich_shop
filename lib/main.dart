@@ -68,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             const OrderItemDisplay(5, 'Footlong'),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: () => print('Add button pressed!'),
