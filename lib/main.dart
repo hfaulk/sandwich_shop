@@ -77,12 +77,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            OrderItemDisplay(5, 'Footlong'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OrderItemDisplay(5, 'Footlong'),
-                OrderItemDisplay(7, 'BLT', width: 175),
-                OrderItemDisplay(2, 'Veggie'),
+                ElevatedButton(
+                  onPressed: () => print('Add button pressed!'),
+                  child: const Text('Add'),
+                ),
+                ElevatedButton(
+                  onPressed: () => print('Remove button pressed!'),
+                  child: const Text('Remove'),
+                ),
               ],
             ),
           ],
