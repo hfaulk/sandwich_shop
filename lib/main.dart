@@ -56,16 +56,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         title: Text(
           widget.title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          ),
+          style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
         ),
+        centerTitle: true,
       ),
       body: Center(
         child: Column(
