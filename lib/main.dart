@@ -34,12 +34,6 @@ class OrderItemDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.lightBlue,
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      padding: const EdgeInsets.all(16.0),
-      width: width,
       child: Text(
         '$quantity $itemType sandwich(es): ${'🥪' * quantity}',
         textAlign: TextAlign.center,
@@ -77,12 +71,18 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const OrderItemDisplay(5, 'Footlong'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                OrderItemDisplay(5, 'Footlong'),
-                OrderItemDisplay(7, 'BLT', width: 175),
-                OrderItemDisplay(2, 'Veggie'),
+                ElevatedButton(
+                  onPressed: () => print('Add button pressed!'),
+                  child: const Text('Add'),
+                ),
+                ElevatedButton(
+                  onPressed: () => print('Remove button pressed!'),
+                  child: const Text('Remove'),
+                ),
               ],
             ),
           ],
