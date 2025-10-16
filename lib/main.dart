@@ -60,7 +60,6 @@ class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 0;
   String _note = '';
   String _selectedSandwichType = 'Footlong';
-  final List<String> _sandwichTypes = ['Footlong', 'Six-inch'];
   final TextEditingController _noteController = TextEditingController();
 
   void _increaseQuantity() {
@@ -83,21 +82,23 @@ class _OrderScreenState extends State<OrderScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            DropdownButton<String>(
-              value: _selectedSandwichType,
-              onChanged: (String? newValue) {
+            SegmentedButton<String>(
+              segments: const [
+                ButtonSegment<String>(
+                  value: 'Footlong',
+                  label: Text('Footlong'),
+                ),
+                ButtonSegment<String>(
+                  value: 'Six-inch',
+                  label: Text('Six-inch'),
+                ),
+              ],
+              selected: {_selectedSandwichType},
+              onSelectionChanged: (Set<String> newSelection) {
                 setState(() {
-                  _selectedSandwichType = newValue!;
+                  _selectedSandwichType = newSelection.first;
                 });
               },
-              items: _sandwichTypes.map<DropdownMenuItem<String>>((
-                String value,
-              ) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
             ),
             const SizedBox(height: 10),
             OrderItemDisplay(_quantity, _selectedSandwichType),
