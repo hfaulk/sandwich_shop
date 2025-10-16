@@ -103,8 +103,16 @@ class _OrderScreenState extends State<OrderScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                StyledButton(onPressed: _increaseQuantity, icon: Icons.add),
-                StyledButton(onPressed: _decreaseQuantity, icon: Icons.remove),
+                StyledButton(
+                  onPressed: _quantity < widget.maxQuantity
+                      ? _increaseQuantity
+                      : null,
+                  icon: Icons.add,
+                ),
+                StyledButton(
+                  onPressed: _quantity > 0 ? _decreaseQuantity : null,
+                  icon: Icons.remove,
+                ),
               ],
             ),
           ],
