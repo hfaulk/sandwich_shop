@@ -32,6 +32,8 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 0;
+  String _note = '';
+  final TextEditingController _noteController = TextEditingController();
 
   void _increaseQuantity() {
     if (_quantity < widget.maxQuantity) {
@@ -54,6 +56,24 @@ class _OrderScreenState extends State<OrderScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             OrderItemDisplay(_quantity, 'Footlong'),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: 300,
+              child: TextField(
+                controller: _noteController,
+                decoration: const InputDecoration(
+                  labelText: 'Special requests',
+                  hintText: 'e.g., no onions, extra pickles',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: (value) {
+                  setState(() {
+                    _note = value;
+                  });
+                },
+              ),
+            ),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -71,6 +91,12 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _noteController.dispose();
+    super.dispose();
   }
 }
 
