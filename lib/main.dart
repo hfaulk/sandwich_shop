@@ -59,6 +59,8 @@ class OrderScreen extends StatefulWidget {
 class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 0;
   String _note = '';
+  String _selectedSandwichType = 'Footlong';
+  final List<String> _sandwichTypes = ['Footlong', 'Six-inch'];
   final TextEditingController _noteController = TextEditingController();
 
   void _increaseQuantity() {
@@ -81,7 +83,24 @@ class _OrderScreenState extends State<OrderScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            OrderItemDisplay(_quantity, 'Footlong'),
+            DropdownButton<String>(
+              value: _selectedSandwichType,
+              onChanged: (String? newValue) {
+                setState(() {
+                  _selectedSandwichType = newValue!;
+                });
+              },
+              items: _sandwichTypes.map<DropdownMenuItem<String>>((
+                String value,
+              ) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 10),
+            OrderItemDisplay(_quantity, _selectedSandwichType),
             const SizedBox(height: 20),
             SizedBox(
               width: 300,
