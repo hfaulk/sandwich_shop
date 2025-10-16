@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 
+enum BreadType {
+  white('White'),
+  wheat('Wheat'),
+  italian('Italian'),
+  honey_oat('Honey Oat');
+
+  const BreadType(this.displayName);
+  final String displayName;
+}
+
 void main() {
   runApp(const MyApp());
 }
@@ -60,6 +70,7 @@ class _OrderScreenState extends State<OrderScreen> {
   int _quantity = 0;
   String _note = '';
   String _selectedSandwichType = 'Footlong';
+  BreadType _selectedBreadType = BreadType.white;
   final TextEditingController _noteController = TextEditingController();
 
   void _increaseQuantity() {
@@ -100,8 +111,39 @@ class _OrderScreenState extends State<OrderScreen> {
                 });
               },
             ),
+            const SizedBox(height: 15),
+            SegmentedButton<BreadType>(
+              segments: const [
+                ButtonSegment<BreadType>(
+                  value: BreadType.white,
+                  label: Text('White'),
+                ),
+                ButtonSegment<BreadType>(
+                  value: BreadType.wheat,
+                  label: Text('Wheat'),
+                ),
+                ButtonSegment<BreadType>(
+                  value: BreadType.italian,
+                  label: Text('Italian'),
+                ),
+                ButtonSegment<BreadType>(
+                  value: BreadType.honey_oat,
+                  label: Text('Honey Oat'),
+                ),
+              ],
+              selected: {_selectedBreadType},
+              onSelectionChanged: (Set<BreadType> newSelection) {
+                setState(() {
+                  _selectedBreadType = newSelection.first;
+                });
+              },
+            ),
             const SizedBox(height: 10),
-            OrderItemDisplay(_quantity, _selectedSandwichType),
+            OrderItemDisplay(
+              _quantity,
+              _selectedSandwichType,
+              _selectedBreadType,
+            ),
             const SizedBox(height: 20),
             SizedBox(
               width: 300,
@@ -151,11 +193,13 @@ class _OrderScreenState extends State<OrderScreen> {
 class OrderItemDisplay extends StatelessWidget {
   final String itemType;
   final int quantity;
+  final BreadType breadType;
   final double width;
 
   const OrderItemDisplay(
     this.quantity,
-    this.itemType, {
+    this.itemType,
+    this.breadType, {
     super.key,
     this.width = 200,
   });
@@ -164,7 +208,7 @@ class OrderItemDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Text(
-        '$quantity $itemType sandwich(es): ${'🥪' * quantity}',
+        '$quantity $itemType sandwich(es) on ${breadType.displayName.toLowerCase()} bread: ${'🥪' * quantity}',
         textAlign: TextAlign.center,
         style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
       ),
