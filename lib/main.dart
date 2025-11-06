@@ -156,81 +156,93 @@ class _OrderScreenState extends State<OrderScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text('Sandwich Counter', style: heading1)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            OrderItemDisplay(
-              quantity: _orderRepository.quantity,
-              itemType: sandwichType,
-              breadType: _selectedBreadType,
-              orderNote: noteForDisplay,
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('six-inch', style: normalText),
-                Switch(
-                  key: const Key('sandwich_size_switch'),
-                  value: _isFootlong,
-                  onChanged: _onSandwichTypeChanged,
+      // Wrap the main column in a scroll view so tests with smaller
+      // constraints don't hit RenderFlex overflow errors.
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              OrderItemDisplay(
+                quantity: _orderRepository.quantity,
+                itemType: sandwichType,
+                breadType: _selectedBreadType,
+                orderNote: noteForDisplay,
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('six-inch', style: normalText),
+                  Switch(
+                    key: const Key('sandwich_size_switch'),
+                    value: _isFootlong,
+                    onChanged: _onSandwichTypeChanged,
+                  ),
+                  Text('footlong', style: normalText),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('untoasted', style: normalText),
+                  Switch(
+                    key: const Key('sandwich_toast_switch'),
+                    value: _isToasted,
+                    onChanged: (value) {
+                      setState(() => _isToasted = value);
+                    },
+                  ),
+                  const Text('toasted', style: normalText),
+                ],
+              ),
+              const SizedBox(height: 10),
+              DropdownMenu<BreadType>(
+                textStyle: normalText,
+                initialSelection: _selectedBreadType,
+                onSelected: _onBreadTypeSelected,
+                dropdownMenuEntries: _buildDropdownEntries(),
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                // Reduce vertical padding so action buttons remain visible in
+                // constrained test viewports.
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40.0,
+                  vertical: 8.0,
                 ),
-                Text('footlong', style: normalText),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('untoasted', style: normalText),
-                Switch(
-                  key: const Key('sandwich_toast_switch'),
-                  value: _isToasted,
-                  onChanged: (value) {
-                    setState(() => _isToasted = value);
-                  },
-                ),
-                const Text('toasted', style: normalText),
-              ],
-            ),
-            const SizedBox(height: 10),
-            DropdownMenu<BreadType>(
-              textStyle: normalText,
-              initialSelection: _selectedBreadType,
-              onSelected: _onBreadTypeSelected,
-              dropdownMenuEntries: _buildDropdownEntries(),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: TextField(
-                key: const Key('notes_textfield'),
-                controller: _notesController,
-                decoration: const InputDecoration(
-                  labelText: 'Add a note (e.g., no onions)',
+                child: TextField(
+                  key: const Key('notes_textfield'),
+                  controller: _notesController,
+                  decoration: const InputDecoration(
+                    labelText: 'Add a note (e.g., no onions)',
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                StyledButton(
-                  onPressed: _getIncreaseCallback(),
-                  icon: Icons.add,
-                  label: 'Add',
-                  backgroundColor: Colors.green,
-                ),
-                const SizedBox(width: 8),
-                StyledButton(
-                  onPressed: _getDecreaseCallback(),
-                  icon: Icons.remove,
-                  label: 'Remove',
-                  backgroundColor: Colors.red,
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StyledButton(
+                    onPressed: _getIncreaseCallback(),
+                    icon: Icons.add,
+                    label: 'Add',
+                    backgroundColor: Colors.green,
+                  ),
+                  const SizedBox(width: 8),
+                  StyledButton(
+                    onPressed: _getDecreaseCallback(),
+                    icon: Icons.remove,
+                    label: 'Remove',
+                    backgroundColor: Colors.red,
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

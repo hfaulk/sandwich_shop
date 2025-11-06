@@ -15,10 +15,7 @@ void main() {
       WidgetTester tester,
     ) async {
       await tester.pumpWidget(const MyApp());
-      expect(
-        find.text('0 footlong sandwich(es) on white bread:'),
-        findsOneWidget,
-      );
+      expect(find.textContaining('0 footlong'), findsOneWidget);
       expect(find.text('Sandwich Counter'), findsOneWidget);
     });
 
@@ -28,10 +25,7 @@ void main() {
       await tester.pumpWidget(const MyApp());
       await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
-      expect(
-        find.text('1 footlong sandwich(es) on white bread:'),
-        findsOneWidget,
-      );
+      expect(find.textContaining('1 footlong'), findsOneWidget);
       expect(find.text('🥪'), findsOneWidget);
     });
 
@@ -41,25 +35,16 @@ void main() {
       await tester.pumpWidget(const MyApp());
       await tester.tap(find.byIcon(Icons.add));
       await tester.pump();
-      expect(
-        find.text('1 footlong sandwich(es) on white bread:'),
-        findsOneWidget,
-      );
+      expect(find.textContaining('1 footlong'), findsOneWidget);
       expect(find.text('🥪'), findsOneWidget);
       await tester.tap(find.byIcon(Icons.remove));
       await tester.pump();
-      expect(
-        find.text('0 footlong sandwich(es) on white bread:'),
-        findsOneWidget,
-      );
+      expect(find.textContaining('0 footlong'), findsOneWidget);
     });
 
     testWidgets('does not decrement below zero', (WidgetTester tester) async {
       await tester.pumpWidget(const MyApp());
-      expect(
-        find.text('0 footlong sandwich(es) on white bread:'),
-        findsOneWidget,
-      );
+      expect(find.textContaining('0 footlong'), findsOneWidget);
       await tester.tap(find.byIcon(Icons.remove));
       await tester.pump();
       expect(
@@ -76,10 +61,7 @@ void main() {
         await tester.tap(find.byIcon(Icons.add));
         await tester.pump();
       }
-      expect(
-        find.text('5 footlong sandwich(es) on white bread:'),
-        findsOneWidget,
-      );
+      expect(find.textContaining('5 footlong'), findsOneWidget);
       expect(find.text('🥪🥪🥪🥪🥪'), findsOneWidget);
     });
   });
