@@ -130,7 +130,9 @@ class _OrderScreenState extends State<OrderScreen> {
     for (BreadType bread in BreadType.values) {
       DropdownMenuEntry<BreadType> newEntry = DropdownMenuEntry<BreadType>(
         value: bread,
-        label: bread.name,
+        // Use the enum's displayName so labels are nicely capitalized
+        // and show spaces instead of underscores (e.g. "Honey Oat").
+        label: bread.displayName,
       );
       entries.add(newEntry);
     }
