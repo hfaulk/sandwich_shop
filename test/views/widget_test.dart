@@ -122,7 +122,7 @@ void main() {
         findsOneWidget,
       );
 
-      final switchFinder = find.byType(Switch);
+      final switchFinder = find.byKey(const Key('sandwich_size_switch'));
       expect(switchFinder, findsOneWidget);
 
       // Toggle to six-inch
