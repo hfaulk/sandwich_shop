@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sandwich_shop/repositories/order_repository.dart';
+import 'package:sandwich_shop/repositories/price_repository.dart';
 
 // Fallback styles in case `app_styles.dart` is empty during development.
 // If you later define these in `app_styles.dart`, you can remove these.
@@ -82,6 +83,7 @@ class OrderScreen extends StatefulWidget {
 
 class _OrderScreenState extends State<OrderScreen> {
   late final OrderRepository _orderRepository;
+  late final PricingRepository _pricingRepository;
   final TextEditingController _notesController = TextEditingController();
   bool _isFootlong = true;
   BreadType _selectedBreadType = BreadType.white;
@@ -91,6 +93,7 @@ class _OrderScreenState extends State<OrderScreen> {
   void initState() {
     super.initState();
     _orderRepository = OrderRepository(maxQuantity: widget.maxQuantity);
+    _pricingRepository = PricingRepository();
     _notesController.addListener(() {
       setState(() {});
     });
@@ -172,7 +175,21 @@ class _OrderScreenState extends State<OrderScreen> {
                 breadType: _selectedBreadType,
                 orderNote: noteForDisplay,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 12),
+              // Show calculated total price using PricingRepository
+              Builder(
+                builder: (context) {
+                  final total = _pricingRepository.totalPrice(
+                    quantity: _orderRepository.quantity,
+                    isFootlong: _isFootlong,
+                  );
+                  return Text(
+                    'Total: £${total.toStringAsFixed(2)}',
+                    style: normalText,
+                  );
+                },
+              ),
+              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
