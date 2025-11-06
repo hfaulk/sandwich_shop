@@ -10,7 +10,7 @@ enum BreadType {
   white('White'),
   wheat('Wheat'),
   italian('Italian'),
-  honey_oat('Honey Oat');
+  honeyOat('Honey Oat');
 
   const BreadType(this.displayName);
   final String displayName;
@@ -248,7 +248,7 @@ class OrderItemDisplay extends StatelessWidget {
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 6),
-          Text('${'🥪' * quantity}', textAlign: TextAlign.center),
+          Text('🥪' * quantity, textAlign: TextAlign.center),
           if (orderNote != null && orderNote!.isNotEmpty) ...[
             const SizedBox(height: 8),
             Text(
