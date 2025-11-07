@@ -11,6 +11,7 @@ A simple Flutter app that demonstrates a small ordering UI for a sandwich shop. 
 - Add a short note / special requests (e.g. "no onions", "extra pickles")
 - Increase / decrease quantity with circular icon buttons
 - Simple `OrderRepository` that enforces a `maxQuantity`
+ - `PricingRepository` which calculates total price (defaults: six-inch £7.00, footlong £11.00)
 - Reusable `OrderItemDisplay` and `StyledButton` components
 
 ---
@@ -62,6 +63,13 @@ Notes about OneDrive: Projects in OneDrive sometimes get file locks/permission i
 5. Use the round + / - buttons to increase / decrease the quantity. Buttons are disabled when you reach 0 or the configured `maxQuantity`.
 6. The order summary in the top area shows: `<quantity> <type> sandwich(es) on <bread> bread:` and then a line of sandwich emoji representing quantity and an optional note.
 
+Additionally, the UI now shows the calculated total price for the current order (displayed as "Total: £X.XX"). Default prices used by the built-in `PricingRepository` are:
+
+- six-inch: £7.00
+- footlong: £11.00
+
+If you want to change the prices for testing or different markets, the `PricingRepository` can be constructed with custom prices.
+
 Important user flows
 
 - Notes are typed into the text field before pressing Add/Remove. The UI updates live and the note is displayed in the order summary.
@@ -82,10 +90,15 @@ flutter test
 Run a single test file:
 
 ```powershell
-flutter test test\views\widget_test.dart
+flutter test test/views/widget_test.dart
 ```
 
 If tests fail because of package naming or imports, ensure the app's package name in `pubspec.yaml` (the `name:` field) matches how tests import the app. The test suite in this repo expects the package name `sandwich_shop` and the `MyApp` widget to be exported from `lib/main.dart`.
+
+Notes for testing
+- The notes TextField has the key `notes_textfield` in the UI, and the sandwich-size switch has the key `sandwich_size_switch`. Tests use these keys to find and interact with those widgets reliably.
+
+If you need to target the Add / Remove buttons from tests, consider adding explicit `Key`s to them in `lib/main.dart` (they are currently found by icon in the included tests).
 
 ---
 
@@ -102,6 +115,8 @@ Key files worth checking:
 - `pubspec.yaml` — declares Flutter SDK and dependencies
 - `lib/main.dart` — main UI and state wiring
 - `lib/repositories/order_repository.dart` — business logic for quantity
+ - `lib/repositories/order_repository.dart` — business logic for quantity
+ - `lib/repositories/price_repository.dart` — pricing logic (total price calculation)
 - `test/views/widget_test.dart` — example widget tests used during development
 
 ---
